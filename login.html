@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quran App Login - Access Your Spiritual Journey" />
+  <title>Quran App - Login</title>
+  <link rel="icon" href="images/man.png" type="image/png" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Amiri', serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #1b263b, #2c786c);
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #1b263b;
+      margin-bottom: 1rem;
+    }
+
+    .credentials {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      background: #f0f4f8;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 40px 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2c786c;
+      box-shadow: 0 0 8px rgba(44, 120, 108, 0.3);
+    }
+
+    label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+      padding: 0 5px;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #2c786c;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #2c786c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: #e63946;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+      animation: shake 0.3s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #2c786c;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #1b263b;
+      transform: scale(1.05);
+    }
+
+    .signup-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .signup-link a {
+      color: #2c786c;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .signup-link a:hover {
+      color: #1b263b;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        margin: 15px;
+        padding: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .credentials {
+        font-size: 0.8rem;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to Quran App</h2>
+    <div class="credentials"></div>
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder=" " required aria-label="Username" />
+        <label for="username">Username</label>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required aria-label="Password" />
+        <label for="password">Password</label>
+        <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+      </div>
+      <p class="error-message" id="loginError">Invalid username or password</p>
+      <button type="submit">Login</button>
+      <p class="signup-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </form>
+  </div>
+  <script>
+    // Password Toggle
+    const passwordInput = document.getElementById('password');
+    const passwordToggle = document.getElementById('passwordToggle');
+    passwordToggle.addEventListener('click', () => {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      passwordToggle.classList.toggle('fa-eye');
+      passwordToggle.classList.toggle('fa-eye-slash');
+    });
+
+    // Login Logic
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('loginError');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+
+      usernameInput.style.borderColor = '#ddd';
+      passwordInput.style.borderColor = '#ddd';
+
+      const storedData = JSON.parse(localStorage.getItem('userData')) || {};
+      if ((username === 'unot' && password === 'ghsow') || (username === storedData.username && password === storedData.password)) {
+        errorMsg.style.display = 'none';
+        localStorage.setItem('loggedInUser', username);
+        window.location.href = 'dashboard.html';
+      } else {
+        errorMsg.style.display = 'block';
+        usernameInput.style.borderColor = '#e63946';
+        passwordInput.style.borderColor = '#e63946';
+      }
+    });
+  </script>
+</body>
+</html>

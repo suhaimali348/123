@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quran App Sign Up - Begin Your Spiritual Journey" />
+  <title>Quran App - Sign Up</title>
+  <link rel="icon" href="images/man.png" type="image/png" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Amiri', serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #4a00e0, #2c786c);
+      overflow: hidden;
+    }
+
+    .signup-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      animation: zoomIn 0.8s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #1b263b;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2c786c;
+      box-shadow: 0 0 8px rgba(44, 120, 108, 0.3);
+    }
+
+    label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+      padding: 0 5px;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #2c786c;
+    }
+
+    .image-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto;
+      display: none;
+      border: 2px solid #2c786c;
+      transition: transform 0.3s;
+    }
+
+    .image-preview:hover {
+      transform: scale(1.1);
+    }
+
+    .error-message {
+      color: #e63946;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #2c786c;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    .login-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .login-link a {
+      color: #2c786c;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .login-link a:hover {
+      color: #1b263b;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .signup-container {
+        margin: 15px;
+        padding: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+
+      .image-preview {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign Up for Quran App</h2>
+    <form id="signupForm" novalidate>
+      <div class="input-group">
+        <input type="text" id="name" placeholder=" " required aria-label="Name" />
+        <label for="name">Full Name</label>
+      </div>
+      <div class="input-group">
+        <input type="text" id="number" placeholder=" " required aria-label="Phone Number" />
+        <label for="number">Phone Number</label>
+      </div>
+      <div class="input-group">
+        <input type="file" id="photo" accept="image/*" required aria-label="Profile Photo" />
+        <img id="preview" class="image-preview" alt="Profile preview" />
+      </div>
+      <div class="input-group">
+        <input type="text" id="username" placeholder=" " required aria-label="Username" />
+        <label for="username">Username</label>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required aria-label="Password" />
+        <label for="password">Password</label>
+      </div>
+      <p class="error-message" id="errorMessage"></p>
+      <button type="submit">Sign Up</button>
+      <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+  <script>
+    // Image Preview
+    const photoInput = document.getElementById('photo');
+    const previewImg = document.getElementById('preview');
+    photoInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          previewImg.src = reader.result;
+          previewImg.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewImg.style.display = 'none';
+      }
+    });
+
+    // Phone Number Validation
+    document.getElementById('number').addEventListener('input', function () {
+      const phonePattern = /^\d{10}$/;
+      if (!phonePattern.test(this.value)) {
+        this.style.borderColor = '#e63946';
+        this.setCustomValidity('Please enter a valid 10-digit phone number');
+      } else {
+        this.style.borderColor = '#2c786c';
+        this.setCustomValidity('');
+      }
+    });
+
+    // Signup Logic
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const errorMsg = document.getElementById('errorMessage');
+      if (!this.checkValidity()) {
+        this.reportValidity();
+        errorMsg.textContent = 'Please fill all fields correctly';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      const name = document.getElementById('name').value.trim();
+      const number = document.getElementById('number').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const photoFile = photoInput.files[0];
+
+      if (!photoFile) {
+        errorMsg.textContent = 'Please upload a profile photo';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const userData = {
+          name,
+          number,
+          username,
+          password,
+          photo: reader.result
+        };
+        localStorage.setItem('userData', JSON.stringify(userData));
+        alert('Registration successful!');
+        window.location.href = 'login.html';
+      };
+      reader.readAsDataURL(photoFile);
+    });
+  </script>
+</body>
+</html>
